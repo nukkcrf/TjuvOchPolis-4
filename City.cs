@@ -8,5 +8,6 @@ namespace TjuvOchPolis_4
 {
     internal class City
     {
+        public City() { }
     }
 }

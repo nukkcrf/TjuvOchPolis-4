@@ -56,7 +56,10 @@ namespace TjuvOchPolis_4
                     int index = random.Next(citizen.Inventory.Count);
                     string stolenItem = citizen.Inventory[index];
 
+                    ThiefInventory.Add(stolenItem); // add item i tjuven inventory
+                    citizen.Inventory.RemoveAt(index); // remove item fran medborgare
 
+                    Console.WriteLine($"Tjuven stal {stolenItem} from Medborgare! ");
                 }
             }
         }
@@ -67,6 +70,30 @@ namespace TjuvOchPolis_4
             public Police(int x, int y) : base(x, y)
             {
                 PoliceInventory = new List<string>();
+            }
+            public void Arrest(Thief thief) // polisen tar allt fran tjuven
+            {
+                              {
+                    // List med beslagda objekt;;
+                    List<string> confiscatedItems = new List<string>(thief.ThiefInventory);
+
+                    // add beslagda items i polisen inventory
+                    PoliceInventory.AddRange(confiscatedItems);
+
+                    // toma tjuven ficka
+                    thief.ThiefInventory.Clear();
+
+                    // visa vilken object polisen beslatog
+                    Console.WriteLine($"Polisen beslagtog följande föremål från tjuven: {string.Join(", ", confiscatedItems)}");
+
+                    // Tjuven lytar pa sig
+                    thief.X = random.Next(0, 100); // Flyta random X
+                    thief.Y = random.Next(0, 25);  // Flyta random  Y
+
+
+                    Thread.Sleep(3000);
+                }
+
             }
         }
 
